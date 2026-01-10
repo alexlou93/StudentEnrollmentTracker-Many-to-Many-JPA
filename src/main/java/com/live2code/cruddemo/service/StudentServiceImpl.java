@@ -4,6 +4,7 @@ import com.live2code.cruddemo.dto.CourseDTO;
 import com.live2code.cruddemo.dto.StudentDTO;
 import com.live2code.cruddemo.entity.Course;
 import com.live2code.cruddemo.entity.Student;
+import com.live2code.cruddemo.exception.CourseNotFoundException;
 import com.live2code.cruddemo.exception.InvalidDataException;
 import com.live2code.cruddemo.exception.StudentNotFoundException;
 import com.live2code.cruddemo.repository.StudentRepository;
@@ -29,6 +30,7 @@ public class StudentServiceImpl implements StudentService{
         this.studentRepository = studentRepository;
     }
 
+    // save student with course details
     @Override
     public StudentDTO saveStudent(StudentDTO studentDTO) {
 
@@ -38,7 +40,7 @@ public class StudentServiceImpl implements StudentService{
         if (studentDTO.getFirstName() == null || studentDTO.getFirstName().isBlank() ||
                 studentDTO.getEmail() == null || studentDTO.getEmail().isBlank()) {
             logger.warn("First name or Email is missing for student: {}", studentDTO);
-            throw new InvalidDataException("First name and Email are mandatory");
+            throw new InvalidDataException("First name and Email are mandatory!");
         }
 
         try {
@@ -55,7 +57,7 @@ public class StudentServiceImpl implements StudentService{
 
                     if (dto.getTitle() == null || dto.getTitle().isBlank()) {
                         logger.warn("Invalid course title: {}", dto);
-                        throw new InvalidDataException("Course title cannot be empty");
+                        throw new InvalidDataException("Course title cannot be empty!");
                     }
 
                     Course course = new Course();
@@ -78,7 +80,7 @@ public class StudentServiceImpl implements StudentService{
         }
     }
 
-
+    // fetch student along with courses
     @Override
     public StudentDTO getStudentById(int StudentId) {
 
@@ -112,6 +114,8 @@ public class StudentServiceImpl implements StudentService{
         }
     }
 
+    // remove student but not courses
+
     @Override
     public String deleteStudent(int studentId) {
 
@@ -123,4 +127,52 @@ public class StudentServiceImpl implements StudentService{
         return "Student deleted" + studentId;
     }
 
+    // fetch courses using student id
+
+    @Override
+    public List<CourseDTO> getCourseByStudentId(int studentId) {
+
+        Student student = studentRepository.findById(studentId).
+                orElseThrow(()->
+                        new StudentNotFoundException("Student not found : " + studentId));
+
+        List<Course> courseList = student.getCourses();
+
+        if(courseList == null || courseList.isEmpty())
+        {
+            throw new CourseNotFoundException("Course list is empty for student : " + studentId);
+        }
+
+        List<CourseDTO> courseDTOS = new ArrayList<>();
+
+        for(Course course : courseList)
+        {
+            CourseDTO dto = new CourseDTO();
+            dto.setId(course.getCourseId());
+            dto.setTitle(course.getTitle());
+            courseDTOS.add(dto);
+        }
+
+        return courseDTOS;
+    }
+
+
+    @Override
+    public Student patchAndSaveStudent(Student student) {
+
+        studentRepository.findById(student.getStudentId()).
+                orElseThrow(() -> new StudentNotFoundException
+                        ("Student not available : " + student.getStudentId()));
+
+        studentRepository.save(student);
+
+        return student;
+    }
+
+    @Override
+    public Student fetchStudent(int id)
+    {
+        return studentRepository.findById(id).
+                orElseThrow(()-> new StudentNotFoundException("Student not available : " + id));
+    }
 }
