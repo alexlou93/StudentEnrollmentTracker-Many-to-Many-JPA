@@ -4,6 +4,7 @@ import com.live2code.cruddemo.dto.CourseDTO;
 import com.live2code.cruddemo.dto.StudentDTO;
 import com.live2code.cruddemo.entity.Student;
 import com.live2code.cruddemo.exception.InvalidDataException;
+import com.live2code.cruddemo.exception.StudentNotFoundException;
 import com.live2code.cruddemo.repository.StudentRepository;
 import com.live2code.cruddemo.service.StudentServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -12,15 +13,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ServiceTest {
+public class StudentServiceTest {
 
     @Mock
     private StudentRepository studentRepository;
@@ -50,6 +51,7 @@ public class ServiceTest {
     }
 
 
+    // save student test cases
     @Test
     void saveStudent_shouldSaveStudentWithCourse(){
 
@@ -121,6 +123,39 @@ public class ServiceTest {
         assertEquals("Course title cannot be empty!", exception.getMessage());
         verify(studentRepository, never()).save(any(Student.class));
     }
+
+    // delete student cases
+
+    @Test
+    void shouldDeleteStudentById(){
+
+        int studentId = 101;
+        Student student = new Student();
+        student.setStudentId(studentId);
+
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
+
+        String result = studentService.deleteStudent(101);
+
+        verify(studentRepository, times(1)).delete(student);
+
+        assertEquals("Student deleted " + studentId, result);
+
+    }
+
+    @Test
+    void shouldDeleteStudentExceptionCase(){
+
+        int studentId = 101;
+        when(studentRepository.findById(101)).thenReturn(Optional.empty());
+
+        assertThrows(StudentNotFoundException.class, ()->
+                studentService.deleteStudent(studentId));
+
+        verify(studentRepository, never()).delete(any());
+
+    }
+
 
 
 }

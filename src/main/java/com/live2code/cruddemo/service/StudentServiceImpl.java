@@ -124,7 +124,7 @@ public class StudentServiceImpl implements StudentService{
 
         studentRepository.delete(student);
 
-        return "Student deleted" + studentId;
+        return "Student deleted " + studentId;
     }
 
     // fetch courses using student id
