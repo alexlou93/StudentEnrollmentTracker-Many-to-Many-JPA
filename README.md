@@ -1,34 +1,71 @@
+Java | Spring Boot | JPA | Hibernate | REST API | Swagger | JUnit | Mockito
+
+
 📌 Project Description
 
-EnrollHub is a Spring Boot application demonstrating a complete Many-to-Many relationship between Students and Courses using Spring Data JPA.
-It showcases how students can enroll in multiple courses, and courses can simultaneously have multiple students linked to them — a common real-world academic system scenario.
+A Spring Boot REST API that demonstrates a Many-to-Many relationship between Students and Courses using Spring Data JPA and Hibernate.
+
+In this system:
+
+A student can enroll in multiple courses.
+
+A course can contain multiple students.
+
+The project showcases REST API development, JPA entity relationships, and layered architecture using Spring Boot.
 
 ________________________________________________________________________________________________________________________________________________________________________________________________________
 
 ✨ Key Features
 
-CRUD operations for Student and Course entities
-
-Bidirectional Many-to-Many JPA mapping
-
-Relational database table design using a join table
-
-RESTful endpoints to create, fetch, update, and delete records
-
-Uses Spring Boot, Spring Data JPA, and MySQL (configurable)
-
-Clean code following separation of layers: Controller → Service → Repository
+• Create and manage Students
+• Create and manage Courses
+• Many-to-Many relationship using JPA Join Table
+• DTO pattern for request and response objects
+• Request validation using Jakarta Validation
+• RESTful API design
+• Global Exception Handling
+• API documentation using Swagger / OpenAPI
+• Unit tests for Controller and Service layers
+• Layered architecture (Controller → Service → Repository)
 
 ________________________________________________________________________________________________________________________________________________________________________________________________________
 
 🏗 Tech Stack
 
-Java 17+
+**Backend**
 
+Java 17
 Spring Boot
+Spring Web
+Spring Data JPA
+Hibernate ORM
 
-Spring Data JPA/Hibernate
 
-MySQL (or any relational database)
+**_Database_**
+
+H2 Database (for development)
+MySQL (can be configured)
+
+
+**Build Tool**
 
 Maven
+
+
+**Libraries**
+
+Lombok
+Jakarta Persistence API
+Jakarta Validation
+
+_________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Entity Relationship
+
+Student  * ----------- *  Course
+         Many-to-Many
+
+
+
+
+
