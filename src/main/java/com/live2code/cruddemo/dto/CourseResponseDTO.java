@@ -1,14 +1,9 @@
 package com.live2code.cruddemo.dto;
 
-import java.util.List;
-
-public class CourseDTO {
+public class CourseResponseDTO {
 
     private int id;
-
     private String title;
-
-//    private List<StudentDTO> studentDTOList;
 
     public int getId() {
         return id;
@@ -25,12 +20,4 @@ public class CourseDTO {
     public void setTitle(String title) {
         this.title = title;
     }
-
- /*   public List<StudentDTO> getStudentDTOList() {
-        return studentDTOList;
-    }
-
-    public void setStudentDTOList(List<StudentDTO> studentDTOList) {
-        this.studentDTOList = studentDTOList;
-    }*/
 }

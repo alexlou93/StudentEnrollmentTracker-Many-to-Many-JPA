@@ -22,7 +22,7 @@ public class Course {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},
     mappedBy = "courses")
-    private List<Student> students;
+    private List<Student> students = new ArrayList<>();
 
     public Course(){
 
@@ -65,16 +65,9 @@ public class Course {
     }
 
     // add convenience method
-    public void addStudent(Student theStudent){
-        if(students == null){
-            students = new ArrayList<>();
-        }
-        students.add(theStudent);
-
-        if (theStudent.getCourses() == null) {
-            theStudent.setCourses(new ArrayList<>());
-        }
-        theStudent.getCourses().add(this);
+    public void addStudent(Student student){
+        students.add(student);
+        student.getCourses().add(this);
     }
 
 }

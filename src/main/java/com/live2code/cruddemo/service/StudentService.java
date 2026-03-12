@@ -1,27 +1,23 @@
 package com.live2code.cruddemo.service;
 
-import com.live2code.cruddemo.dto.CourseDTO;
-import com.live2code.cruddemo.dto.StudentDTO;
+import com.live2code.cruddemo.dto.*;
 import com.live2code.cruddemo.entity.Student;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StudentService {
 
-    // fetch student along with associated courses using student id
-    StudentDTO getStudentById(int id);
 
-    StudentDTO saveStudent(StudentDTO studentDTO);
+    StudentResponseDTO createStudent(StudentRequestDTO dto);
 
-    String deleteStudent(int studentId);
+    StudentResponseDTO getStudentById(int id);
 
-    List<CourseDTO> getCourseByStudentId(int studentId);
+    List<CourseResponseDTO> getCoursesByStudentId(int studentId);
 
-    // patch method
+    void deleteStudent(int studentId);
 
-    Student patchAndSaveStudent(Student student);
-
-    Student fetchStudent(int id);
+    Student patchStudent(int id, Map<String,Object> payload);
 
 
 }

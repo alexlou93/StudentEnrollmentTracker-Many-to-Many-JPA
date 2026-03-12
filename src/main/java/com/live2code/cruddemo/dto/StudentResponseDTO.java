@@ -1,20 +1,14 @@
 package com.live2code.cruddemo.dto;
 
-import com.live2code.cruddemo.entity.Course;
-
 import java.util.List;
 
-public class StudentDTO {
+public class StudentResponseDTO {
 
     private int id;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
-    private List<CourseDTO> courseList;
+    private List<CourseResponseDTO> courses;
 
     public int getId() {
         return id;
@@ -48,12 +42,11 @@ public class StudentDTO {
         this.email = email;
     }
 
-    public List<CourseDTO> getCourseList() {
-        return courseList;
+    public List<CourseResponseDTO> getCourses() {
+        return courses;
     }
 
-    public void setCourseList(List<CourseDTO> courseList) {
-        this.courseList = courseList;
+    public void setCourses(List<CourseResponseDTO> courses) {
+        this.courses = courses;
     }
 }
-

@@ -29,7 +29,7 @@ public class Student {
             name = "course_student",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<>();
 
     public Student(){
 
@@ -91,16 +91,10 @@ public class Student {
                 '}';
     }
 
-    // add convenience method
-    public void addCourse(Course theCourse){
-        if(courses == null){
-            courses = new ArrayList<>();
-        }
-        courses.add(theCourse);
+    // Convenience method
+    public void addCourse(Course course) {
 
-        if (theCourse.getStudents() == null) {
-            theCourse.setStudents(new ArrayList<>());
-        }
-        theCourse.getStudents().add(this);
+        courses.add(course);
+        course.getStudents().add(this);
     }
 }
