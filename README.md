@@ -41,30 +41,20 @@ ________________________________________________________________________________
 
 🏗 Tech Stack
 
-**Backend**
-
-Java 17, Spring Boot, Spring Web, Spring Data JPA, Hibernate ORM
+**Backend** : Java 17, Spring Boot, Spring Web, Spring Data JPA, Hibernate ORM
 
 
-**_Database_**
-
-H2 Database (for development), MySQL (can be configured)
+**_Database_** : H2 Database (for development), MySQL (can be configured)
 
 
-**Build Tool**
-
-Maven
+**Build Tool** : Maven
 
 
-**Libraries**
-
-Lombok, Jakarta Persistence API, Jakarta Validation
+**Libraries** : Lombok, Jakarta Persistence API, Jakarta Validation
 
 _________________________________________________________________________________________________________________________________________________________________________________________________________
 
-Entity Relationship
-
-Student  * ----------- *  Course
+Entity Relationship : Student  * ----------- *  Course
          (Many-to-Many)
 
 
